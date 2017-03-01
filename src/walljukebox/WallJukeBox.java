@@ -29,7 +29,7 @@ public class WallJukeBox {
         
         
         /* Start the PlayDriver in a thread */
-        PlayerDriverInterface driver = new PlayerDriverMp3("C:\\Users\\pauln\\Music");
+        PlayerDriverInterface driver = new PlayerDriverMp3(args[0]);
         Thread playDriverThread = new Thread(driver);
         playDriverThread.start();
         
