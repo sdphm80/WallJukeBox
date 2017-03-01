@@ -24,24 +24,17 @@ import library.Song;
 public class PlayerDriverMp3 implements PlayerDriverInterface, BasicPlayerListener {
 
     private BasicPlayer bp;
-    private final String mp3LibraryFolder;
     private Album album;
     private String albumFilePath;
     private int currentTrack;
     private PlayerDriverListnerInterface listner;
 
-    public PlayerDriverMp3(String mp3LibraryFolder) {
-        /* Validate MP3 Library Folder */
-        File f = new File(mp3LibraryFolder);
-        if (!f.exists() || !f.isDirectory()) {
-            throw new RuntimeException("MP3 Library Directory " + mp3LibraryFolder + " is not valid");
-        }
+    public PlayerDriverMp3() {
 
         /* Store Variables */
         BasicPlayerFactory bpFactory = new BasicPlayerFactory();
         this.bp = bpFactory.getPlayer();
         this.bp.addBasicPlayerListener(this);
-        this.mp3LibraryFolder = mp3LibraryFolder;
         this.currentTrack = 1;
         this.album = null;
         this.albumFilePath = null;
@@ -75,8 +68,7 @@ public class PlayerDriverMp3 implements PlayerDriverInterface, BasicPlayerListen
         this.currentTrack = trackNumber;
 
         Song song =  this.album.getSongByTrackNumber(trackNumber);
-        String filePath = mp3LibraryFolder + "\\" + albumFilePath + "\\" + trackNumber + " - " + song.getTitle() + ".mp3";
-        File f = new File(filePath);
+        File f = song.getFile();
 
         try {
             bp.open(f);

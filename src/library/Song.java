@@ -5,45 +5,45 @@
  */
 package library;
 
+import java.io.File;
+
 /**
  *
  * @author pauln
  */
 public class Song {
     
-    private int trackNumber;
+    private final Album album;
     private String title;
     private String artist;
-    private int songLengthInSeconds;
-    private int recordSide;
-    private int recordStart;
-    private int recordStop;
+    private File file;
     
     /**
      *
+     * @param album
      * @param title
      * @param artist
-     * @param recordSide
-     * @param recordStart
-     * @param recordStop
+     * @param fileName
+     * @param albumDir
+     * @throws java.lang.Exception
      */
-    public Song(String title, String artist, int songLengthInSeconds, int recordSide, int recordStart, int recordStop){
+    public Song(Album album, String title, String artist, String fileName, String albumDir) throws Exception{
+        File file = new File (albumDir + "/" + fileName);
+        if (!file.exists() || !file.isFile()){
+            throw new Exception("Can't find music file " + file.getCanonicalPath());
+        }
+        
+        this.album = album;
         this.title = title;
         this.artist = artist;
-        this.songLengthInSeconds = songLengthInSeconds;
-        this.recordSide = recordSide;
-        this.recordStart = recordStart;
-        this.recordStop = recordStop;
+        this.file = file;
+    }
+    
+    public Album getAlbum(){
+        return this.album;
     }
 
-    public int getTrackNumber() {
-        return trackNumber;
-    }
-
-    public void setTrackNumber(int trackNumber) {
-        this.trackNumber = trackNumber;
-    }
-
+  
     public String getTitle() {
         return title;
     }
@@ -59,38 +59,10 @@ public class Song {
     public void setArtist(String artist) {
         this.artist = artist;
     }
-
-    public int getSongLengthInSeconds() {
-        return songLengthInSeconds;
-    }
-
-    public void setSongLengthInSeconds(int songLengthInSeconds) {
-        this.songLengthInSeconds = songLengthInSeconds;
-    }
-
-    public int getRecordSide() {
-        return recordSide;
-    }
-
-    public void setRecordSide(int recordSide) {
-        this.recordSide = recordSide;
-    }
-
-    public int getRecordStart() {
-        return recordStart;
-    }
-
-    public void setRecordStart(int recordStart) {
-        this.recordStart = recordStart;
-    }
-
-    public int getRecordStop() {
-        return recordStop;
-    }
-
-    public void setRecordStop(int recordStop) {
-        this.recordStop = recordStop;
-    }
     
-    
+    public File getFile(){
+        return file;
+    }
+
+   
 }

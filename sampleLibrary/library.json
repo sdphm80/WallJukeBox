@@ -1,0 +1,27 @@
+{
+	"albums":[
+	{
+		"title": "Test Album",
+		"artist": "Various",
+		"wallRow": "1",
+		"wallCol": "1",
+		"songs":[
+			{
+				"title": "Just A Little More Love",
+				"artist": "Wally Lopez",
+				"file": "1 - Test Song 1.mp3"
+			},
+			{
+				"title": "Chain of Fools",
+				"artist": "Fantasia",
+				"file": "80-Fantasia - Chain Of Fools.mp3"
+			},
+			{
+				"title": "Little Lies (Fogmountain Bootleg Systems House Remix)",
+				"artist": "Fleetwood Mac",
+				"file": "Fleetwood Mac - Little Lies (Fogmountain Bootleg Systems House Remix).mp3"
+			}
+		]
+	}
+	]
+}
