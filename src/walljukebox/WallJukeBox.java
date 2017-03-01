@@ -39,8 +39,8 @@ public class WallJukeBox {
         /* Start Display Output & Regsister */
         //TestDisplay display = new TestDisplay();
         //playController.registerListner(display);
-        TestGui guiDisplay = new TestGui(playController);
-        playController.registerListner(guiDisplay);
+        //TestGui guiDisplay = new TestGui(playController);
+        //playController.registerListner(guiDisplay);
 
         TestGui2 testGui = new TestGui2();
         testGui.show();
