@@ -12,6 +12,8 @@ import player.PlayerDriverInterface;
 import player.PlayerDriverMp3;
 import display.TestGui;
 import display.TestGui2;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import library.LibraryRepoJson;
 
 /**
@@ -25,13 +27,17 @@ public class WallJukeBox {
      */
     public static void main(String[] args) throws Exception {
 
+        /* Load Album Library & setup Save on shutdown */
         LibraryRepoJson libraryRepo = new LibraryRepoJson(args[0]);
         Library lib = libraryRepo.load();
+       
+        
 
         /* Start the PlayDriver in a thread */
         PlayerDriverInterface driver = new PlayerDriverMp3();
         Thread playDriverThread = new Thread(driver);
         playDriverThread.start();
+        
 
         /* Start the Player Controller */
         Player playController = new Player(driver);
@@ -50,6 +56,7 @@ public class WallJukeBox {
         /* Play test album */
         Album album = lib.getAllAlbums()[0];
         playController.load(album);
+       
 
     }
 

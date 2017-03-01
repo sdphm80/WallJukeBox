@@ -8,9 +8,12 @@ package library;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import walljukebox.WallJukeBox;
 
 /**
  *
@@ -30,6 +33,7 @@ public class LibraryRepoJson {
         }
         this.libDir = libDir.getCanonicalPath();
         this.library = new Library(this.libDir);
+        
     }
 
     /**
@@ -37,11 +41,32 @@ public class LibraryRepoJson {
      * @return @throws java.lang.Exception
      */
     public Library load() throws Exception {
+        /* Load Album If Needed */
         if (!isLoaded) {
             loadAlbums();
+            setSaveOnShutdown();
             this.isLoaded = true;
         }
         return this.library;
+    }
+    
+    private void setSaveOnShutdown(){
+         Runtime.getRuntime().addShutdownHook(
+                new Thread(){
+                    public void run(){
+                        try {
+                            save();
+                        } catch (Exception ex) {
+                            Logger.getLogger(LibraryRepoJson.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+        );
+    }
+
+    public void save() throws Exception {
+        /* TODO - Save library back to JSON file */
+        System.out.println("TODO - Save library to JSON file");
     }
 
     private void loadAlbums() throws Exception {
@@ -55,7 +80,6 @@ public class LibraryRepoJson {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonLibrary = (JSONObject) jsonParser.parse(new FileReader(jsonFile));
         JSONArray albums = (JSONArray) jsonLibrary.get("albums");
-        
 
         for (Object a : albums) {
             JSONObject jsonAlbum = (JSONObject) a;
@@ -74,11 +98,11 @@ public class LibraryRepoJson {
     private void loadSongs(JSONArray songs, Album album) throws Exception {
         for (Object s : songs) {
             JSONObject jsonSong = (JSONObject) s;
-            
+
             String title = (String) jsonSong.get("title");
             String artist = (String) jsonSong.get("artist");
             String file = (String) jsonSong.get("file");
-            
+
             album.addSong(title, artist, file);
         }
     }
